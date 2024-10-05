@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import ReactModal from '../../ui/lib/Modal.jsx'
-import classes from './Home.module.scss'
-import ReorderableScanList from './components/ScanList.jsx'
+import ReorderableScanList from './components/scanList/ScanList.jsx'
 
 const Home = () => {
   const modalRef = useRef(null)
