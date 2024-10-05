@@ -1,9 +1,9 @@
 import { Link, useParams } from 'react-router-dom'
-import { scanResults } from '../ScanResutls.js'
+import { mockData } from '../mockData.js'
 
 const ScanDetails = () => {
   const { id } = useParams();
-  const scan = scanResults.find(scan => scan.id.toString() === id);
+  const scan = mockData.find(scan => scan.id.toString() === id);
 
   return (
     <div>

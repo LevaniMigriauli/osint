@@ -1,4 +1,4 @@
-export const scanResults = [
+export const mockData = [
   {
     id: '123',
     name: 'Scan 1',

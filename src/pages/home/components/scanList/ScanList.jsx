@@ -1,17 +1,7 @@
-import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import classes from './ScanList.module.scss';
-import { scanResults } from '../ScanResutls.js'
 
-const ReorderableScanList = () => {
-  const [scans, setScans] = useState(() => {
-    const savedScans = localStorage.getItem('scans');
-    return savedScans ? JSON.parse(savedScans) : scanResults;
-  });
-
-  useEffect(() => {
-    localStorage.setItem('scans', JSON.stringify(scans));
-  }, [scans]);
+const ReorderableScanList = ({scans, setScans}) => {
 
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
