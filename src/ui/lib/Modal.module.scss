@@ -12,8 +12,9 @@
   border: none;
   border-radius: 8px;
   width: 90%;
-  box-shadow: 0.00px 0.00px 30px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0.00px 0.00px 30px 0 rgba(0, 0, 0, 0.3);
   background-color: #1b1c1d;
+  outline: none;
 
   @include respond-to-tablet {
     padding: 40px;

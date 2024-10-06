@@ -32,7 +32,7 @@ const ReactModal = forwardRef(
         className={classes.modalContent}
         style={{
           overlay: {
-            backgroundColor: 'rgba(2, 21, 38, 0.34)'
+            backgroundColor: 'rgba(2, 21, 38, 0.75)'
           }
         }}
       >
