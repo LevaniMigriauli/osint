@@ -1,0 +1,33 @@
+@import "src/scss/mixins";
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 20px;
+  margin-bottom: 40px;
+
+  img {
+    height: 30px;
+
+    @include respond-to-tablet {
+      height: 60px;
+    }
+  }
+
+  h1 {
+    font-size: 20px;
+
+    @include respond-to-tablet {
+      font-size: 26px;
+    }
+  }
+
+  &__btn-action {
+
+    @include respond-to-tablet {
+      font-size: 20px;
+    }
+  }
+}

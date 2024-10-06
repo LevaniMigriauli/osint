@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import ReactModal from '../../ui/lib/Modal.jsx'
 import ReorderableScanList from './components/scanList/ScanList.jsx'
+import Header from '../../layouts/Header.jsx'
 import { mockData } from './components/mockData.js'
 
 const Home = () => {
@@ -42,24 +42,7 @@ const Home = () => {
 
   return (
     <>
-      <header style={{ marginBottom: '40px' }}>
-        <button type={'button'} style={{ cursor: 'pointer', zIndex: '999' }}
-                onClick={() => modalRef.current.handleOpenModal()}>
-          Scan
-        </button>
-        <ReactModal ref={modalRef}>
-          <input
-            type="text"
-            value={domain}
-            onChange={(e) => setDomain(e.target.value)}
-            placeholder="Enter domain"
-          />
-          <button type={'button'}
-                  onClick={() => modalRef.current.handleCloseModal()}>close
-          </button>
-          <button onClick={handleScan}>search</button>
-        </ReactModal>
-      </header>
+      <Header ref={modalRef} domain={domain} setDomain={setDomain} handleScan={handleScan}/>
       <main>
 
         <div>
