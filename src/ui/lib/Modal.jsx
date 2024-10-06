@@ -1,10 +1,11 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
 import Modal from 'react-modal'
+import classes from './Modal.module.scss'
 
 Modal.setAppElement('#root')
 
 const ReactModal = forwardRef(
-  ({ isOpen, children, padding, borderRadius, width, handleModalClose }, ref) => {
+  ({ isOpen, children, handleModalClose }, ref) => {
     const [modalIsOpen, setModalIsOpen] = useState(isOpen || false)
 
     useImperativeHandle(ref, () => ({
@@ -20,32 +21,25 @@ const ReactModal = forwardRef(
     }))
 
     return (
-        <Modal
-          ref={ref}
-          isOpen={modalIsOpen}
-          onRequestClose={() => {
-            setModalIsOpen(false)
-            handleModalClose()
-          }}
-          contentLabel="Example Modal"
-          style={{
-            overlay: {
-              backgroundColor: 'rgba(2, 21, 38, 0.34)'
-            },
-            content: {
-              top: '50%',
-              left: '50%',
-              right: 'auto',
-              bottom: 'auto',
-              transform: 'translate(-50%, -50%)',
-              padding: `${padding}`,
-              borderRadius: borderRadius,
-              width: width
-            }
-          }}
-        >
-          {children}
-        </Modal>
+      <Modal
+        ref={ref}
+        isOpen={modalIsOpen}
+        onRequestClose={() => {
+          setModalIsOpen(false)
+          handleModalClose()
+        }}
+        contentLabel="Example Modal"
+        className={classes.modalContent}
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(2, 21, 38, 0.34)'
+          }
+        }}
+      >
+        {children}
+      </Modal>
     )
-  })
+  }
+)
+
 export default ReactModal

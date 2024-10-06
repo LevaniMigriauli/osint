@@ -1,0 +1,15 @@
+@import "src/scss/mixins";
+
+.input {
+  font-size: 14px;
+  padding: 12px;
+  border-radius: 4px;
+  width: 100%;
+  border: none;
+  outline: none;
+
+  @include respond-to-tablet {
+    font-size: 18px;
+    padding: 16px;
+  }
+}

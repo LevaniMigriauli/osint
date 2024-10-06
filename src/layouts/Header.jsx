@@ -3,6 +3,7 @@ import ReactModal from '../ui/lib/Modal.jsx'
 import ptImg from '../assets/images/favicon.png'
 import classes from './Header.module.scss'
 import Button from '../ui/lib/Button.jsx'
+import Input from '../ui/lib/Input.jsx'
 
 const Header = forwardRef(({ domain, setDomain, handleScan }, ref) => {
 
@@ -13,17 +14,14 @@ const Header = forwardRef(({ domain, setDomain, handleScan }, ref) => {
       <Button className={classes['header__btn-action']} onClick={() => ref.current.handleOpenModal()}>
         Scan
       </Button>
-      <ReactModal ref={ref}>
-        <input
-          type="text"
-          value={domain}
-          onChange={(e) => setDomain(e.target.value)}
-          placeholder="Enter domain"
-        />
-        <button type={'button'}
+      <ReactModal ref={ref} isOpen={true}>
+        <div className={classes['header-modal']}>
+          <Input className={classes['header-modal__input']} value={domain} onChange={(e) => setDomain(e.target.value)} placeholder="Enter domain"/>
+        <button className={classes['header-modal__btn-close']} type={'button'}
                 onClick={() => ref.current.handleCloseModal()}>close
         </button>
-        <button onClick={handleScan}>search</button>
+        <Button onClick={handleScan}>search</Button>
+        </div>
       </ReactModal>
     </header>
   )

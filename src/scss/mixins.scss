@@ -1,5 +1,7 @@
+@import "variables";
+
 @mixin respond-to-tablet {
-  @media (min-width: 768px) {
+  @media (min-width: $breakpoint-tablet) {
     @content;
   }
 }
