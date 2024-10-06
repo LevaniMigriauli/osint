@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import ReorderableScanList from './components/scanList/ScanList.jsx'
 import Header from '../../layouts/Header.jsx'
 import { mockData } from './components/mockData.js'
+import { showErrorToast, showSuccessToast } from '../../ui/lib/Toast.jsx'
 
 const Home = () => {
   const modalRef = useRef(null)
@@ -23,6 +24,7 @@ const Home = () => {
 
     if (mockScanResults) {
       setScans(prevResults => [...prevResults, mockScanResults])
+      showSuccessToast('Scan successful! Domain found.')
     } else {
       const uniqueId = `invalid-${Date.now()}`
 
@@ -35,6 +37,7 @@ const Home = () => {
           endTime: new Date().toISOString(),
           domainName: domain
         }])
+      showErrorToast('Scan failed! Invalid domain.')
     }
 
     modalRef.current.handleCloseModal()
@@ -42,7 +45,8 @@ const Home = () => {
 
   return (
     <>
-      <Header ref={modalRef} domain={domain} setDomain={setDomain} handleScan={handleScan}/>
+      <Header ref={modalRef} domain={domain} setDomain={setDomain}
+              handleScan={handleScan}/>
       <main>
 
         <div>
