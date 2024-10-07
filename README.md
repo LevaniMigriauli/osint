@@ -22,6 +22,9 @@ docker pull qsmrkhef16/osint:version1.0.0
 docker run -p 3000:3000 qsmrkhef16/osint:version1.0.0
 ```
 
+## GitHub Repository Link
+https://github.com/LevaniMigriauli/osint
+
 **SCAN** according to domain names:
 
 - example.com
