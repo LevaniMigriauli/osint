@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useMemo } from 'react'
 import ReorderableScanList from './components/scanList/ScanList.jsx'
 import Header from '../../layouts/Header.jsx'
+import classes from "./Home.module.scss"
 import { mockData } from './components/mockData.js'
 import {
   showErrorToast,
@@ -68,8 +69,9 @@ const Home = () => {
         handleScan={handleScan}
         isLoading={isLoading}
       />
-      <main>
-        <ReorderableScanList scans={scans} setScans={setScans}/>
+      <main className={classes.main}>
+        {scans?.length ? <ReorderableScanList scans={scans} setScans={setScans}/> :
+          <p className={classes['no-domain-scanned']}>No Scanned Domains found</p>}
       </main>
     </>
   )

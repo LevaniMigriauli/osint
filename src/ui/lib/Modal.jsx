@@ -26,9 +26,8 @@ const ReactModal = forwardRef(
         isOpen={modalIsOpen}
         onRequestClose={() => {
           setModalIsOpen(false)
-          handleModalClose()
+          handleModalClose && handleModalClose()
         }}
-        contentLabel="Example Modal"
         className={classes.modalContent}
         style={{
           overlay: {

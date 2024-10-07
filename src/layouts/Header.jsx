@@ -47,7 +47,7 @@ const Header = forwardRef(
                 onClick={() => ref.current.handleOpenModal()}>
           Scan
         </Button>
-        <ReactModal ref={ref}>
+        <ReactModal ref={ref} handleModalClose={() => setDomain('')}>
           <div className={classes['header-modal']}>
             <Input className={classes['header-modal__input']}
                    name={'domainName'}
