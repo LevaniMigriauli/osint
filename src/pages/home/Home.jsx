@@ -1,61 +1,75 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 import ReorderableScanList from './components/scanList/ScanList.jsx'
 import Header from '../../layouts/Header.jsx'
 import { mockData } from './components/mockData.js'
-import { showErrorToast, showSuccessToast } from '../../ui/lib/Toast.jsx'
+import {
+  showErrorToast,
+  showSuccessToast,
+  showWarningToast
+} from '../../ui/lib/Toast.jsx'
 import Loader from '../../ui/lib/Loader.jsx'
+
+const getStoredScans = () => {
+  const savedScans = localStorage.getItem('scans')
+  return savedScans ? JSON.parse(savedScans) : []
+}
 
 const Home = () => {
   const modalRef = useRef(null)
   const [isLoading, setIsLoading] = useState(false)
   const [domain, setDomain] = useState('')
-  const [scans, setScans] = useState(() => {
-    const savedScans = localStorage.getItem('scans')
-    return savedScans ? Array.isArray(JSON.parse(savedScans)) ? JSON.parse(
-      savedScans) : [] : []
-  })
+  const [scans, setScans] = useState(getStoredScans)
 
   useEffect(() => {
-    if (scans.length > 0)
+    if (scans.length > 0) {
       localStorage.setItem('scans', JSON.stringify(scans))
+    }
   }, [scans])
+
+  const mockScanResults = useMemo(
+    () => mockData.find(item => item.domainName === domain),
+    [domain]
+  )
 
   const handleScan = () => {
     setIsLoading(true)
-    const mockScanResults = mockData.find(item => item.domainName === domain)
 
     setTimeout(() => {
       if (mockScanResults) {
-        setScans(prevResults => [...prevResults, mockScanResults])
-        showSuccessToast('Scan successful! Domain found.')
-      } else {
-        const uniqueId = `invalid-${Date.now()}`
+        setScans(prevResults => {
+          const isDuplicate = prevResults.some(
+            scan => scan.domainName === mockScanResults.domainName
+          )
 
-        setScans(prevResults => [
-          ...prevResults, {
-            id: uniqueId,
-            name: 'Invalid Domain',
-            result: 'No valid domain found',
-            startTime: new Date().toISOString(),
-            endTime: new Date().toISOString(),
-            domainName: domain
+          if (!isDuplicate) {
+            showSuccessToast('Scan successful! Domain found.')
+            return [...prevResults, mockScanResults]
           }
-        ])
+
+          showWarningToast('Domain already scanned.')
+          return prevResults
+        })
+      } else {
         showErrorToast('Scan failed! Invalid domain.')
       }
 
       setIsLoading(false)
       modalRef.current.handleCloseModal()
-    }, 3000)
+    }, 2000)
   }
 
   return (
     <>
-      {!isLoading && <Loader/>}
-      <Header ref={modalRef} domain={domain} setDomain={setDomain}
-              handleScan={handleScan} isLoading={isLoading}/>
+      {isLoading && <Loader/>}
+      <Header
+        ref={modalRef}
+        domain={domain}
+        setDomain={setDomain}
+        handleScan={handleScan}
+        isLoading={isLoading}
+      />
       <main>
-          <ReorderableScanList scans={scans} setScans={setScans}/>
+        <ReorderableScanList scans={scans} setScans={setScans}/>
       </main>
     </>
   )

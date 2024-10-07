@@ -11,6 +11,17 @@ export const showSuccessToast = (message) => {
   })
 }
 
+export const showWarningToast = (message) => {
+  toast(message, {
+    icon: '⚠️',
+    style: {
+      borderRadius: '8px',
+      background: '#ffc107', // Warning yellow
+      color: '#000'
+    }
+  })
+}
+
 export const showErrorToast = (message) => {
   toast.error(message, {
     icon: '❌',
